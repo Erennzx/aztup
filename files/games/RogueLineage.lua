@@ -18,8 +18,17 @@ local BlockUtils = sharedRequire('@utils/BlockUtils.lua');
 
 local column1, column2 = unpack(library.columns);
 
-local disableenvprotection = disableenvprotection or function() end;
-local enableenvprotection = enableenvprotection or function() end;
+local disableenvprotection = disableenvprotection or function() 
+    if syn and syn.protect_env then
+        syn.protect_env() 
+    end
+end
+
+local enableenvprotection = enableenvprotection or function() 
+    if syn and syn.unprotect_env then
+        syn.unprotect_env()
+    end
+end
 
 local Players, Lighting, RunService, UserInputService, ReplicatedStorage, CoreGui, NetworkClient = Services:Get(
     'Players',
@@ -6238,4 +6247,5 @@ Bots:AddButton({text = 'Load Bot', callback = loadBot});
 Bots:AddButton({text = 'Start Bot', callback = startBotPrompt});
 
 Bots:AddBox({text = 'File Name'});
+
 Bots:AddDivider('Custom Bots Settings');
