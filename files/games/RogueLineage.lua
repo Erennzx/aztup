@@ -1,4 +1,4 @@
-local library = sharedRequire('@UILibrary.lua');
+local library = 'https://raw.githubusercontent.com/Erennzx/aztup/refs/heads/main/files/UILibrary.lua';
 
 local ToastNotif = sharedRequire('@classes/ToastNotif.lua');
 local TextLogger = sharedRequire('@classes/TextLogger.lua');
@@ -6257,5 +6257,6 @@ Bots:AddButton({text = 'Start Bot', callback = startBotPrompt});
 Bots:AddBox({text = 'File Name'});
 
 Bots:AddDivider('Custom Bots Settings');
+
 
 
