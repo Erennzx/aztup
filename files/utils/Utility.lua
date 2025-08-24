@@ -1,4 +1,12 @@
-SX_VM_CNONE();
+local function sharedRequire(url)
+    local success, result = pcall(function()
+        return loadstring(game:HttpGet(url))()
+    end)
+    if not success then
+        error("Failed to load shared module: " .. url)
+    end
+    return result
+end
 
 local Services = sharedRequire('./Services.lua');
 local library = sharedRequire('../UILibrary.lua');
@@ -467,5 +475,6 @@ function Utility.map(t, c)
 
     return ret;
 end;
+
 
 return Utility;
