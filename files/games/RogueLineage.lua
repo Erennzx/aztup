@@ -709,7 +709,7 @@ do -- // Functions
         local cachedRemotes = {};
 
         oldIndex = hookmetamethod(game, '__index', function(self, p)
-            SX_VM_CNONE();
+            -- SX_VM_CNONE = SX_VM_CNONE or function() end
             if(not tango) then
                 return oldIndex(self, p);
             end;
@@ -754,7 +754,7 @@ do -- // Functions
 		local getMouse = ReplicatedStorage.Requests.GetMouse;
 
         oldNewIndex = hookmetamethod(game, '__newindex', function(self, p, v)
-            SX_VM_CNONE();
+            -- SX_VM_CNONE = SX_VM_CNONE or function() end
             -- local Character = oldIndex(LocalPlayer, 'Character');
             -- local CharacterHandler = Character and FindFirstChild(Character, 'CharacterHandler') or self;
 
@@ -782,7 +782,7 @@ do -- // Functions
         end);
 
         oldNameCall = hookmetamethod(game, '__namecall', function(self, ...)
-            SX_VM_CNONE();
+            -- SX_VM_CNONE = SX_VM_CNONE or function() end
             if(not remotes.loadKeys or checkcaller() or not string.find(debug.traceback(), 'ControlModule')) then
                 return oldNameCall(self, ...);
             end;
@@ -6249,3 +6249,4 @@ Bots:AddButton({text = 'Start Bot', callback = startBotPrompt});
 Bots:AddBox({text = 'File Name'});
 
 Bots:AddDivider('Custom Bots Settings');
+
