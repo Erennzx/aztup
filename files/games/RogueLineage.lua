@@ -167,7 +167,15 @@ do -- // Download Assets
             writefile(string.format('Aztup Hub V3/%s', v), game:HttpGet(string.format('%s/%s', apiEndpoint, v)));
         end;
 
-        assets[v] = getsynasset(string.format('Aztup Hub V3/%s', v));
+        local success, assetData = pcall(function()
+		    return getsynasset(string.format('Aztup Hub V3/%s', v))
+		end)
+		
+		if not success then
+		    -- Alternatif yol
+		    assetData = getcustomasset(string.format('Aztup Hub V3/%s', v))
+		end
+		assets[v] = assetData
     end;
 
     function loadSound(soundName)
@@ -439,7 +447,7 @@ do -- // Functions
         local function grabKeyHandler()
             if(isGaia) then
                 for i, v in next, getgc() do
-                    if(typeof(v) == 'function' and islclosure(v) and not is_synapse_function(v) and table.find(getconstants(v), 'plum')) then
+                    if(typeof(v) == 'function' and islclosure(v) and table.find(getconstants(v), 'plum')) then
                         local keyHandler = getupvalue(v, 1);
                         if(typeof(keyHandler) == 'table' and typeof(rawget(keyHandler, 1)) == 'function') then
                             getKey = rawget(keyHandler, 1);
@@ -6249,4 +6257,5 @@ Bots:AddButton({text = 'Start Bot', callback = startBotPrompt});
 Bots:AddBox({text = 'File Name'});
 
 Bots:AddDivider('Custom Bots Settings');
+
 
