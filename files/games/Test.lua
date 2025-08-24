@@ -1,6 +1,14 @@
-local Utility = sharedRequire('@utils/Utility.lua');
-local createBaseESP = sharedRequire('@utils/createBaseESP.lua');
-local library = sharedRequire('@UILibrary.lua');
+local function sharedRequire(url)
+    local success, result = pcall(function()
+        return loadstring(game:HttpGet(url))()
+    end)
+    if not success then
+        error("Failed to load shared module: " .. url)
+    end
+    return result
+end
+
+local library = sharedRequire('https://raw.githubusercontent.com/Erennzx/aztup/refs/heads/main/files/UILibrary.lua');
 
 local partsESP = createBaseESP('npcs');
 
@@ -39,5 +47,6 @@ function Utility:renderOverload(data)
         flag = 'Npcs'
     })
 end;
+
 
 Utility.listenToChildAdded(workspace.Parts, onPartAdded);
